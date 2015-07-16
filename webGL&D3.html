@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>pathGL - webgl data visualisation library</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PATHGL">	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="http://pathgl.com/dist/pathgl.js"></script>
+  </head>
+  <body class="docs docs-page docs-api">
+	<div id="oncoprint">
+	<canvas id="oncoprintCanvas" height="1000px" width="16000px"></canvas>
+	<button type="button" onClick="redrawOncoprint()" >Shrink</button><button type="button" onClick="redrawOncoprint1()">Expend</button>
+	</div>
+	<script>
+	var center = [];
+        var center1 = [];
+
+        var shape=d3.select('canvas');
+
+        $(document).ready(function() { 
+
+        for(var i = 0; i<2000; i++)
+        {
+          for(var j = 0; j<50; j++)
+          {
+              var centerValue = {};
+              centerValue.x= i*7+50;
+              centerValue.y= j*20+20; 
+
+              center.push(centerValue);
+            }
+        }
+  
+        for(var i = 0; i<2000; i++)
+        {
+          for(var j = 0; j<50; j++)
+          {
+              var centerValue = {};
+              centerValue.x= i*3+50;
+              centerValue.y= j*20; 
+
+              center1.push(centerValue);
+            }
+        }
+	
+	   
+  	var circles = shape.selectAll("rect")
+                           .data(center)
+                           .enter()
+                           .append('rect')
+                           .attr('x', function(d){return d.x;})
+                           .attr('y', function(d){return d.y;})
+                           .attr("width", 3)
+                           .attr("height", 15)
+                           .attr('fill', 'red');
+ });
+  	
+    var redrawOncoprint= function()
+    	{
+                shape.selectAll("rect")
+                     .attr('fill', 'blue');
+                var aaaa=90;    
+    	}
+	</script>
+  </body>
+</html>

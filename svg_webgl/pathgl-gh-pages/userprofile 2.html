@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>pathGL - webgl data visualisation library</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PATHGL">	
+    <script src="lib/d3.js" charset="utf-8"></script>
+    <script src="dist/pathgl.js"></script>
+  </head>
+  <body class="docs docs-page docs-api">
+	<div class="thisone">
+    <canvas class="one" width="600" height="450"></canvas>
+  </div>
+	<button type="button">Shrink</button><button type="button">Expend</button>
+	<script>
+
+      var shapeValue = d3.select('.one').selectAll("circle")
+                        .data(d3.range(1e4))
+                        .enter().append("circle")
+                        .attr('opacity', 0.8)
+                        .attr('stroke', function (i) { return d3.hcl(i, 100, 55) })
+                        .attr('cx', function (i) { return Math.random() * i / 3})
+                        .attr('r', function (i) { return i % 3 * 4 });
+
+      shapeValue.shader({ cx: 'resolution.x / 2. + cos(r.x + xy.x * clock / 1e6) * xy.x'
+              , cy: 'resolution.y / 2. + sin(r.x + xy.x * clock  / 1e6) * xy.x'
+      });
+
+	</script>
+  </body>
+</html>
